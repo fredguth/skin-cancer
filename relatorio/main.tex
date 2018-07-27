@@ -52,12 +52,7 @@ In this paper, we describe our approach for the ISIC Challenge 2018:
 
 \section{Lesion Segmentation}
 \label{segmentation}
-\subsection{Computational Resources and Development Framework\label{resources}}
-We used Paperspace GPU Cloud service for running all our experiments. The instance server had: 8 cores CPU with 30GB of RAM, Quadro P4000 8 core GPU with 8GB of RAM. 
-The code was developed in PyTorch and Fast.ai\cite{fastai} on Jupyter Notebooks.
 
-\subsection{Data and Augmentation}
-We used “ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection” grand challenge datasets \cite{codella, ham} and no aditional external data. All images were first resized to 128x128 pixels, 256x256 and 512x512; and preprocessed to adjust color balance. Random transformations on input images to agument the dataset were made: dihedral transformation, rotation (up to 44 degrees), zooming (up to 1.05), fliping and random lightining changes. The official training dataset was then splited in 3-folds of training and validation datasets.  
 
 \subsection{Segmentation Model: Unet34}
 Introduced in 2015, U-net is an encoder-decoder architecture designed for biomedical image segmentation\cite{olaf}, with great results in image segmentation problems\cite{iglovikov}. In an U-net the output is an image with the same dimension of the input, but with one channel.  The encoder path is a typical CNN, where each downsampling step doubles the number of feature channels. But what makes this architecture unique is the decoder path, where each upsampling step input is a concatenation of the output of the previous step with the output of the corresponding (same height) downsampling step. This strategy enables precise localization with a very simple network. 
@@ -66,14 +61,18 @@ Resnet is a very successful architecture in several visual recognizing tasks\cit
 
 Unet34 is the idea of using a pretrained Resnet34 model as an Unet encoder path\cite{fastai}. First, everything from the adaptive pooling onwards is removed, keeping only Resnet backbone. Then we save the output of results of the initial layer, 3rd , 8th, and 14th blocks (of 16 in total). During the upsampling we concat the output of those with the ouputs of upsampling steps. We used Adam optimizer and Binary Cross Entropy with Logits as the loss function.
 
+\subsection{Data and Augmentation}
+We used “ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection” grand challenge datasets \cite{codella, ham} and no aditional external data. All images were first resized to 128x128 pixels, 256x256 and 512x512; and preprocessed to adjust color balance. Random transformations on input images to agument the dataset were made: dihedral transformation, rotation (up to 44 degrees), zooming (up to 1.05), fliping and random lightining changes. The official training dataset was then splited in 3-folds of training and validation datasets.  
+
+
 \subsection{Segmentation Experiments and Training}
 \label{sec:seg_training}
 Our training strategy was to first train the model with 128x128 images and transfer this learning to train the same model with images with 256 x 256 images. Initially we thought of using the same strategy to go from 256x256 to 512 x 512 images, but due to GPU memory constraints, we didn't manage to acccomplish this last step.
 
 \begin{figure}
 \centering
-\subfloat[Learning Rate Optimization\label{lrfind}]{\includegraphics[width=.5\columnwidth]{LR_find.png}}
-\subfloat[cyclical learning rate policy\label{sconv}]{\includegraphics[width=.5\columnwidth]{lr_cycle.png}}\hfil
+\subfloat[Learning Rate Optimization]{\includegraphics[width=.5\columnwidth]{LR_find.png}\label{lrfind}}
+\subfloat[cyclical learning rate policy]{\includegraphics[width=.5\columnwidth]{lr_cycle.png}\label{sconv}}\hfil
 \subfloat[superconvergence]{\includegraphics[width=0.6\columnwidth]{accuracy_epoch.png}}
 \caption{Learning rate optimization strategy}\label{lr_find_chart}
 \end{figure}
@@ -82,7 +81,7 @@ The training procedure was the same on 128x128 and 256x256:
 \begin{enumerate}
   \item Freeze the first layer group.
   \item \label{lr_find}Define the optimal learning rate with the method proposed by \cite{leslie} and implemented by \cite{fastai}, where one batch is trained with different learning rates, starting at very low and linearly increasing it at every iteration and ploting a chart of the learning rate versus loss (see figure \ref{lrfind}).
-  \item \label{superconvergence}We use the 1 cyclical learning rate policy (figure \ref{sconv}, also proposed by \cite{leslie}, to obtain training convergence in only 30 epochs (superconvergence).
+  \item \label{superconvergence}We use the 1 cyclical learning rate policy (figure \ref{sconv}), also proposed by \cite{leslie}, to obtain training convergence in only 30 epochs (superconvergence).
   \item Unfreeze the model, keeping only the batch normalization layers frozen, and repeat steps \ref{lr_find} and \ref{superconvergence}.
 \end{enumerate}
 
@@ -105,10 +104,6 @@ Visually the best segmentations are almost indentical to the ground truth (see F
 
 \section{Lesion Classification}
 \label{classification}
-\subsection{Computational Resources and Development Framework}
-See section \ref{resources}.
-\subsection{Data and Augmentation}
-We used “ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection” grand challenge datasets \cite{codella, ham}. When we used a pretrained Task1 model, we considered that external data was used. All images were first resized to 224x224 and a color balance copy of the dataset was made. Random transformations on input images to agument the dataset were made: dihedral transformation, rotation (up to 35 degrees), zooming (up to 1.05), fliping and random lightining changes. The official training dataset was then splited in 3-folds of training and validation datasets.  
 
 \subsection{Classification Model}
 We used Resnet50, an architecture which has been very succesful in image classification problems (cite?). We tried using Resnet101 and Resnext101, but due to the lack of computer resources they didn't suit the fast iteration process our research needed. We used the fastai implementation of Resnet50, which has some improvements over the original model proposed by \cite{resnet}. We customized the Resnet50 model pretrained with the Imagenet dataset, by first, removing everything from the adaptive pooling onwards keeping only Resnet backbone as a feature extractor. Then we plugged a very simple network consisting of:
@@ -123,6 +118,10 @@ We used Resnet50, an architecture which has been very succesful in image classif
 \item LogSoftmax
 \end{itemize}
 We used Adam optimizer and the negative log likelihood loss function.
+
+\subsection{Data and Augmentation}
+We used “ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection” grand challenge datasets \cite{codella, ham}. When we used a pretrained Task1 model, we considered that external data was used. All images were first resized to 224x224 and a color balance copy of the dataset was made. Random transformations on input images to agument the dataset were made: dihedral transformation, rotation (up to 35 degrees), zooming (up to 1.05), fliping and random lightining changes. The official training dataset was then splited in 3-folds of training and validation datasets.  
+
 
 \subsection{Classification: Experiments and Training}
 
@@ -143,6 +142,7 @@ We didn't use the color balanced dataset copy as using it gave us worse results.
 
 \emph{KFoldCrop}: We repeated CropBest strategy to 3 different folds and ensemble them. 
 
+On all strategies we applied Test Time Augmentation (TTA) with 5 augmentations per input to improve results.
 \subsection{Classification Results}
 
 \ref{tabela}.
@@ -155,17 +155,19 @@ We didn't use the color balanced dataset copy as using it gave us worse results.
 \begin{tabular}{@{}rrr@{}}
 \toprule
             & \multicolumn{1}{c}{Accuracy (\%)} & \multicolumn{1}{c}{Online Score} \\ \midrule
-SnapEsem & \(88.36\)& \(0\)                                  \\ \midrule
-CropBest   & \(93.26\)&  \(0\)                                \\ \midrule
+SnapEsem & \(89.71\)& \(84.6\)                                  \\ \midrule
+CropBest   & \(93.26\)&  \(76.4\)                                \\ \midrule
 KfoldCrop    & \(92.31\)  & \(0\)                              \\ \bottomrule
 \end{tabular}
 \end{table}
 
-The best result within our validation set was obtained using the CropBest strategy. 
+Although the best result within our validation set was obtained using the CropBest strategy, we believe that the KfoldCrop can be more general. Interesting to point that all strategies had better accuracy than dermatologists which have an accuracy of 75\% to 84\%\cite{isic}. 
 
 Better than dermatologist specialists (diagnostic accuracy of 75\%-84\%).
 
-
+\section{Computational Resources and Development Framework\label{resources}}
+We used Paperspace GPU Cloud service for running all our experiments. The instance server had: 8 cores CPU with 30GB of RAM, Quadro P4000 8 core GPU with 8GB of RAM. 
+The code was developed in PyTorch and Fast.ai\cite{fastai} on Jupyter Notebooks.
 \section{Conclusion and Future Work}
 
 This paper descibes... 
