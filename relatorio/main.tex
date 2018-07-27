@@ -135,9 +135,9 @@ The training procedure was the same on 128x128 and 256x256:
   \item Unfreeze the model, keeping only the batch normalization layers frozen, and repeat steps \ref{lr_find} and \ref{superconvergence}.
 \end{enumerate}
 
-(explain 3-fold pretrained with best 256x256)
-
 We have tried to change the loss function to make it more similar to the avaliation criteria. As jaccard is not differentiable, we used the differentiable soft jaccard variation. Despite of that, we couldn't make it work better than the Binary Cross Entropy with Logits loss function. 
+
+Our final submission took the 3-fold datasets and trained them with the pretrained best model obtained before. We submited the best model of those 3 and an esemble that averages the result of them. 
 
 \subsection{Segmentation Results}
 
@@ -194,14 +194,23 @@ We didn't use the color balanced dataset copy as using it gave us worse results.
 
 \subsection{Classification Results}
 
-% \begin{figure}
-% \centering
-% \subfloat[Good Result Sample\label{good}]{\includegraphics[width=\columnwidth]{good_result.png}}\hfil
-% \subfloat[Bad Result Samples]{\includegraphics[width=\columnwidth]{bad_results.png}}
-% \caption{??.}\label{result_samples}
-% \end{figure}
+\ref{tabela}.
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\centering
+\caption{Classification Results.}
+\label{tabela}
+\begin{tabular}{@{}rrr@{}}
+\toprule
+            & \multicolumn{1}{c}{Accuracy (\%)} & \multicolumn{1}{c}{Online Score} \\ \midrule
+SnapEsem & \(88.36\)& \(0\)                                  \\ \midrule
+CropBest   & \(93.26\)&  \(0\)                                \\ \midrule
+KfoldCrop    & \(92.31\)  & \(0\)                              \\ \bottomrule
+\end{tabular}
+\end{table}
 
-The best result within our validation set was obtained using the 3-fold ensemble.  It scores 85.39\% Jaccard index and 78.43\% Threshold Jaccard index (with cut at 65\%). Surprisingly, it did not score so well with the online score and given official validation set, scoring 71.4\%.  The small size of the official validation set and the threshold at 65\% may be the reason for that (one change in prediction from 64\% or 66\% Jaccard makes a huge difference in the average threshold jaccard index). Our best online score with the official validation set was 75.5\%. 
+The best result within our validation set was obtained using the CropBest strategy.  It scores ??\% Jaccard index and 78.43\% Threshold Jaccard index (with cut at 65\%). Surprisingly, it did not score so well with the online score and given official validation set, scoring 71.4\%.  The small size of the official validation set and the threshold at 65\% may be the reason for that (one change in prediction from 64\% or 66\% Jaccard makes a huge difference in the average threshold jaccard index). Our best online score with the official validation set was 75.5\%. 
 
 Visually the best segmentations are almost indentical to the ground truth (see \ref{good}). But we can learn even more from our mistakes. Analysing the worse segmentations there are cases where as non specialists is hard to say if the algorithm was wrong or the ground truth was; there are cases where our algorithm got confused by the pen marker or the glass used by the doctor; and it is clear that in general it doesn't do a good job when the lesion is small relative to the overall image. 
 
