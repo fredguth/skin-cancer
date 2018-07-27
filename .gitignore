@@ -4,3 +4,8 @@ Task3
 ISIC-Archive*
 .ipynb*
 .vscode
+relatorio/main.aux
+relatorio/main.bbl
+relatorio/main.blg
+relatorio/main.log
+relatorio/main.pdf
