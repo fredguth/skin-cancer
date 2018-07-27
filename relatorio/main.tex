@@ -113,7 +113,7 @@ Introduced in 2015, U-net is an encoder-decoder architecture designed for biomed
 
 Resnet is a very successful architecture in several visual recognizing tasks\cite{he}. It mitigates the degradation problem that happens when very deep networks starts converging. Instead of learning a direct mapping $H(x) = y$, it learns the residual function  $F(x) = H(x)-x$, which can be reframed into $H(x) = F(x)+x = y$, where $F(x)$ is a stack of non-linear layers and $x$ is the identity function(input=output). The formulation of $F(x)+x$ can be implemented by feedforward neural networks with “shortcut connections” (see Figure \ref{shortcut}). Resnet34, specifically, is composed of an initial convolutional layer, 16 blocks of 2 layers and a final fully connected layer.
 
-Unet34 is the idea of using a pretrained Resnet34 model as an Unet encoder path\cite{fastai}. First, everything from the adaptive pooling onwards is removed, keeping only Resnet backbone. Then we save the output of results of 2nd, 4th, 5th, and 6th blocks. During the upsampling we concat the output of those with the ouputs of upsampling steps. We used Adam optimizer and Binary Cross Entropy with Logits as the loss function.
+Unet34 is the idea of using a pretrained Resnet34 model as an Unet encoder path\cite{fastai}. First, everything from the adaptive pooling onwards is removed, keeping only Resnet backbone. Then we save the output of results of the initial layer, 3rd , 8th, and 14th blocks (of 16 in total). During the upsampling we concat the output of those with the ouputs of upsampling steps. We used Adam optimizer and Binary Cross Entropy with Logits as the loss function.
 
 \subsection{Segmentation Experiments and Training}
 \label{sec:seg_training}
