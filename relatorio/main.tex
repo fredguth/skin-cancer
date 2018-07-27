@@ -14,6 +14,7 @@
 \usepackage{nameref}
 
 \usepackage[english]{babel}
+\DeclareUnicodeCharacter{00A0}{ }
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -21,8 +22,63 @@
 \title{Deep Learning for Skin Lesion Segmentation and Classification: ISIC Challenge 2018}
 
 \author{\IEEEauthorblockN{Fred Guth}}
+%  {A. Author-one, B. Author-two\sthanks{Thanks to XYZ agency for funding.}}
+%	{School A-B\\
+%	Department A-B\\
+%	Address A-B}
+
+\author{\IEEEauthorblockN{Frederico Guth\IEEEauthorrefmark{1},
+Teófilo E. de Campos \IEEEauthorrefmark{2}}
+\IEEEauthorblockA{Departamento de Ciência da Computação,
+Universidade de Brasília (UNB)\\
+\IEEEauthorrefmark{1}fredguth@fredguth.com,
+\IEEEauthorrefmark{2}teodecampos@unb.br}}
 
 \maketitle
+
+% Title.
+% ------
+% \title{AUTHOR GUIDELINES FOR ISBI 2018 PROCEEDINGS MANUSCRIPTS}
+%
+% Single address.
+% ---------------
+% \name{Author(s) Name(s)\thanks{Thanks to XYZ agency for funding.}}
+% \address{Author Affiliation(s)}
+%
+% For example:
+% ------------
+%\address{School\\
+%	Department\\
+%	Address}
+%
+% Two addresses (uncomment and modify for two-address case).
+% ----------------------------------------------------------
+%\twoauthors
+%  {A. Author-one, B. Author-two\sthanks{Thanks to XYZ agency for funding.}}
+%	{School A-B\\
+%	Department A-B\\
+%	Address A-B}
+%  {C. Author-three, D. Author-four\sthanks{The fourth author performed the work
+%	while at ...}}
+%	{School C-D\\
+%	Department C-D\\
+%	Address C-D}
+%
+% More than two addresses
+% -----------------------
+% \name{Author Name$^{\star \dagger}$ \qquad Author Name$^{\star}$ \qquad Author Name$^{\dagger}$}
+%
+% \address{$^{\star}$ Affiliation Number One \\
+%     $^{\dagger}$}Affiliation Number Two
+%
+% \begin{document}
+%\ninept
+%
+% \maketitle
+%
+
+
+
 
 \begin{abstract}
 This report describes our approach for the ISIC Challenge 2018 - Skin Lesion Analysis Towards Melanoma Detection. For Part 1 - Lesion Segmentation, we developed a U-net based convolutional neural network pretrained with the ImageNet dataset\cite{imagenet} and applied several data augmentation and hyperparameters optimization strategies, obtaining threshold(0.65) jaccard of 0.775. For Part 3 - Lesion Classification, we developed an ensemble strategy that leverages pretrained convolutional networks with our results from Part 1, obtaining an online score of xxxx. 
@@ -48,17 +104,19 @@ In this paper, we describe our approach for the ISIC Challenge 2018:
 \subsection{Computational Resources and Development Framework\label{resources}}
 We used a Paperspace GPU Cloud service for running all our experiments. The instance server used had: 8 cores CPU with 30GB of RAM, Quadro P4000 8 core GPU with 8GB of RAM. 
 The code was developed in PyTorch and Fast.ai\cite{fastai} on Jupyter Notebooks.
+
 \subsection{Data and Augmentation}
 We used “ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection” grand challenge datasets \cite{codella, ham} and no aditional external data. All images were first resized to 128x128 pixels, 256x256 and 512x512; and preprocessed to adjust color balance. Random transformations on input images to agument the dataset were made: dihedral transformation, rotation (up to 44 degrees), zooming (up to 1.05), fliping and random lightining changes. The official training dataset was then splited in 3-folds of training and validation datasets.  
 
-\subsection{Model: Unet34}
+\subsection{Segmentation Model: Unet34}
 Introduced in 2015, U-net is an encoder-decoder architecture designed for biomedical image segmentation\cite{olaf}. In an U-net the output is an image with the same dimension of the input, but with one channel.  The encoder path is a typical CNN, where each downsampling step doubles the number of feature channels. But what makes this architecture unique is the decoder path, where each upsampling step input is a concatenation of the output of the previous step with the output of the corresponding (same height) downsampling step. This strategy enables precise localization with a very simple network. 
 
-Resnet is a very successful architecture in several visual recognizing tasks\cite{he}. It mitigates the degradation problem that happens when very deep networks starts converging. Instead of learning a direct mapping $H(x) = y$, it learns the residual function  $F(x) = H(x) — x$, which can be reframed into $H(x) = F(x)+x = y$, where $F(x)$ is a stack of non-linear layers and $x$ is the identity function(input=output). The formulation of $F(x)+x$ can be implemented by feedforward neural networks with “shortcut connections” (see Figure \ref{shortcut}).
+Resnet is a very successful architecture in several visual recognizing tasks\cite{he}. It mitigates the degradation problem that happens when very deep networks starts converging. Instead of learning a direct mapping $H(x) = y$, it learns the residual function  $F(x) = H(x)-x$, which can be reframed into $H(x) = F(x)+x = y$, where $F(x)$ is a stack of non-linear layers and $x$ is the identity function(input=output). The formulation of $F(x)+x$ can be implemented by feedforward neural networks with “shortcut connections” (see Figure \ref{shortcut}). Resnet34, specifically, is composed of an initial convolutional layer, 16 blocks of 2 layers and a final fully connected layer.
 
 Unet34 is the idea of using a pretrained Resnet34 model as an Unet encoder path\cite{fastai}. First, everything from the adaptive pooling onwards is removed, keeping only Resnet backbone. Then we save the output of results of 2nd, 4th, 5th, and 6th blocks. During the upsampling we concat the output of those with the ouputs of upsampling steps. We used Adam optimizer and Binary Cross Entropy with Logits as the loss function.
 
-\subsection{Experiments and Training}
+\subsection{Segmentation Experiments and Training}
+\label{sec:seg_training}
 Our training strategy was to first train the model with 128x128 images and transfer this learning to train the same model with images with 256 x 256 images. Initially we thought of using the same strategy to go from 256x256 to 512 x 512 images, but due to GPU memory constraints, we didn't manage to acccomplish this last step.
 
 \begin{figure}
@@ -73,7 +131,7 @@ The training procedure was the same on 128x128 and 256x256:
 \begin{enumerate}
   \item Freeze the first layer group.
   \item \label{lr_find}Define the optimal learning rate with the method proposed by \cite{leslie} and implemented by \cite{fastai}, where one batch is trained with different learning rates, starting at very low and linearly increasing it at every iteration and ploting a chart of the learning rate versus loss (see figure \ref{lr_find_chart}).
-  \item \label{superconvergence}We use the cyclical learning rate method, also proposed by \cite{leslie}, to obtain training convergence in only 30 epochs (what is called superconvergence).
+  \item \label{superconvergence}We use the 1 cyclical learning rate policy, also proposed by \cite{leslie}, to obtain training convergence in only 30 epochs (what is called superconvergence).
   \item Unfreeze the model, keeping only the batch normalization layers frozen, and repeat steps \ref{lr_find} and \ref{superconvergence}.
 \end{enumerate}
 
@@ -97,42 +155,51 @@ Visually the best segmentations are almost indentical to the ground truth (see \
 \section{Lesion Classification}
 \label{classification}
 \subsection{Computational Resources and Development Framework}
-See \ref{resources}.
+See section \ref{resources}.
 \subsection{Data and Augmentation}
-We used the ISIC 2018 Challenge official dataset with no aditional external data. All images were first resized to 224x224 and preprocessed to adjust color balance. Random transformations on input images to agument the dataset: dihedral transformation, rotate (up to 35 degrees), zoom (up to 1.05x), flip and random lighting changes. The training dataset was then splited in 3-folds of training and validation datasets.  
+We used “ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection” grand challenge datasets \cite{codella, ham}. When we used a pretrained Task1 model, we considered that external data was used. All images were first resized to 224x224 and a color balance copy of the dataset was made. Random transformations on input images to agument the dataset were made: dihedral transformation, rotation (up to 35 degrees), zooming (up to 1.05), fliping and random lightining changes. The official training dataset was then splited in 3-folds of training and validation datasets.  
 
-\subsection{Model}
-We used two similar architetures: Resnet50 and Resnext101. Both architectures habe been very succesful in image classification problems (cite?). 
+\subsection{Classification Model}
+We used Resnet50, an architecture which has been very succesful in image classification problems (cite?). We tried using Resnet101 and Resnext101, but due to the lack of computer resources they didn't suit the fast iteration process our research needed. We used the fastai implementation of Resnet50, which has some improvements over the original model proposed by \cite{resnet}. We customized the Resnet50 model pretrained with the Imagenet dataset, by first, removingeverything from the adaptive pooling onwards keeping only Resnet backbone as a feature extractor. Then we plugged a very simple network consisting of:
+\begin{itemize}
+\item BatchNorm1d(1024, momentum=0.1)
+\item Dropout(p=0.25)
+\item Linear (input=1024, output=512)
+\item ReLU 
+\item BatchNorm1d(1024, eps=1e-5, momentum=0.1)
+\item Dropout(p=0.5)
+\item Linear (input=512, output=7)
+\item LogSoftmax
+\end{itemize}
+We used Adam optimizer and the negative log likelihood loss function.
 
-\subsection{Training}
+\subsection{Classification: Experiments and Training}
 
 
-\begin{figure}
-\centering
-\subfloat[Learning Rate Optimization]{\includegraphics[width=.5\columnwidth]{LR_find.png}}
-\subfloat[cyclical learning rate policy]{\includegraphics[width=.5\columnwidth]{lr_cycle.png}}\hfil
-\subfloat[superconvergence]{\includegraphics[width=\columnwidth]{accuracy_epoch.png}}
-\caption{colocar aqui}\label{lr_find_chart}
-\end{figure}
+% \begin{figure}
+% \centering
+% \subfloat[Learning Rate Optimization]{\includegraphics[width=.5\columnwidth]{LR_find.png}}
+% \subfloat[cyclical learning rate policy]{\includegraphics[width=.5\columnwidth]{lr_cycle.png}}\hfil
+% \subfloat[superconvergence]{\includegraphics[width=\columnwidth]{accuracy_epoch.png}}
+% \caption{colocar aqui}\label{lr_find_chart}
+% \end{figure}
 
-The training procedure was the same on 128x128 and 256x256:
-\begin{enumerate}
-  \item Freeze the first layer group.
-  \item \label{lr_find}Define the optimal learning rate with the method proposed by \cite{leslie} and implemented by \cite{fastai}, where one batch is trained with different learning rates, starting at very low and linearly increasing it at every iteration and ploting a chart of the learning rate versus loss (see figure \ref{lr_find_chart}).
-  \item \label{superconvergence}We use the cyclical learning rate method, also proposed by \cite{leslie}, to obtain training convergence in only 30 epochs (what is called superconvergence).
-  \item Unfreeze the model, keeping only the batch normalization layers frozen, and repeat steps \ref{lr_find} and \ref{superconvergence}.
-\end{enumerate}
+We didn't use the color balanced dataset copy as using it gave us worse results. The training procedure was similar to Task 1 (\ref{sec:seg_training}), but we used a cosine annealing learning rate strategy (see figure \ref{cosine}) instead of the one cycle policy (both proposed by \cite{leslie}). We then tried 3 strategies:
 
-(explain 3-fold pretrained with best 256x256)
+\em{SnapEsem}: We saved snapshots of our model during training and then made an ensemble of those snapshots, as proposed by \cite{snapshots}.
 
-\subsection{Segmentation Results}
+\em{CropBest}: We applied our segmentation algorithm from Task1 to the dataset of Task3, croping the images by the lesion mininum bounding rectangle. We used a pretrained model from SnapEsem and retrained it using the croped images.
 
-\begin{figure}
-\centering
-\subfloat[Good Result Sample\label{good}]{\includegraphics[width=\columnwidth]{good_result.png}}\hfil
-\subfloat[Bad Result Samples]{\includegraphics[width=\columnwidth]{bad_results.png}}
-\caption{??.}\label{result_samples}
-\end{figure}
+\em{KFoldCrop}: We repeated CropBest strategy to 3 different folds and ensemble them. 
+
+\subsection{Classification Results}
+
+% \begin{figure}
+% \centering
+% \subfloat[Good Result Sample\label{good}]{\includegraphics[width=\columnwidth]{good_result.png}}\hfil
+% \subfloat[Bad Result Samples]{\includegraphics[width=\columnwidth]{bad_results.png}}
+% \caption{??.}\label{result_samples}
+% \end{figure}
 
 The best result within our validation set was obtained using the 3-fold ensemble.  It scores 85.39\% Jaccard index and 78.43\% Threshold Jaccard index (with cut at 65\%). Surprisingly, it did not score so well with the online score and given official validation set, scoring 71.4\%.  The small size of the official validation set and the threshold at 65\% may be the reason for that (one change in prediction from 64\% or 66\% Jaccard makes a huge difference in the average threshold jaccard index). Our best online score with the official validation set was 75.5\%. 
 
@@ -141,7 +208,7 @@ Visually the best segmentations are almost indentical to the ground truth (see \
 
 
 
-\section{Discussão e Conclusões}
+\section{Conclusion and Future Work}
 Neste trabalho, implementamos dois algoritmos para rastreamento visual de objetos em vídeo. O algoritmo KCF apresenta bons resultados de acurácia e robustez.  Entretanto, mostramos que seu modelo pode melhorar se incorporar incerteza, o que pode ser feito com um filtro de Kalman. Ao \textit{amortecer}  o resultado do KCF com um filtro de Kalman, tivemos resultados de robustez entre 60 e 90\% melhores, com perdas de acurácia menores que 12\%, esse resultado serve de inspiração para melhorias na implementação do rastreador KCF da OpenCV. 
 
 % \begin{figure}[htbp]

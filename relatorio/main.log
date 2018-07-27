@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.3.13)  26 JUL 2018 01:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.3.13)  27 JUL 2018 10:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -833,15 +833,17 @@ File: babel.def 2017/05/19 3.10 Babel common definitions
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
-)) (./main.aux
-
-LaTeX Warning: Label `lr_find_chart' multiply defined.
-
+))
+   defining Unicode char U+00A0 (decimal 160)
+ (./main.aux
 
 LaTeX Warning: Label `lr_find' multiply defined.
 
 
 LaTeX Warning: Label `superconvergence' multiply defined.
+
+
+LaTeX Warning: Label `lr_find_chart' multiply defined.
 
 
 LaTeX Warning: Label `good' multiply defined.
@@ -855,24 +857,24 @@ LaTeX Warning: Label `result_samples' multiply defined.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 20.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    ... okay on input line 20.
 
 -- Lines per column: 56 (exact).
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -923,134 +925,99 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 37.
+LaTeX Font Info:    Try loading font information for U+msa on input line 37.
 
-
-LaTeX Warning: Citation `isic' on page 1 undefined on input line 37.
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 41.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 41.
+LaTeX Font Info:    Try loading font information for U+msb on input line 37.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 1442) in paragraph at lines 52--53
+
+LaTeX Warning: Citation `isic' on page 1 undefined on input line 93.
+
+
+Underfull \hbox (badness 1442) in paragraph at lines 109--110
 []\OT1/ptm/m/n/10 We used \ISIC 2018: Skin Le-sion Anal-y-sis To-wards
  []
 
 
-! Package inputenc Error: Unicode char   (U+200A)
-(inputenc)                not set up for use with LaTeX.
-
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.57 ...rns the residual function  $F(x) = H(x) 
-                                                  — x$, which can be ref...
-
-? 
-
-LaTeX Warning: Command \textemdash invalid in math mode on input line 57.
-
-
-! Package inputenc Error: Unicode char   (U+200A)
-(inputenc)                not set up for use with LaTeX.
-
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.57 ...e residual function  $F(x) = H(x) — 
-                                                  x$, which can be reframed ...
-
-? 
-
-LaTeX Warning: Reference `shortcut' on page 1 undefined on input line 57.
-
-<LR_find.png, id=1, 390.45876pt x 271.0125pt>
-File: LR_find.png Graphic file (type png)
- <use LR_find.png>
-Package pdftex.def Info: LR_find.png used on input line 66.
-(pdftex.def)             Requested size: 126.0pt x 87.45358pt.
-
-<lr_cycle.png, id=3, 396.48125pt x 266.9975pt>
-File: lr_cycle.png Graphic file (type png)
- <use lr_cycle.png>
-Package pdftex.def Info: lr_cycle.png used on input line 67.
-(pdftex.def)             Requested size: 126.0pt x 84.85019pt.
-
-<accuracy_epoch.png, id=4, 508.90125pt x 354.32375pt>
-File: accuracy_epoch.png Graphic file (type png)
- <use accuracy_epoch.png>
-Package pdftex.def Info: accuracy_epoch.png used on input line 68.
-(pdftex.def)             Requested size: 252.0pt x 175.45837pt.
+LaTeX Warning: Reference `shortcut' on page 1 undefined on input line 114.
 
 [1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-
-LaTeX Warning: Citation `leslie' on page 2 undefined on input line 75.
-
-
-LaTeX Warning: Citation `leslie' on page 2 undefined on input line 76.
-
-<good_result.png, id=18, 2180.145pt x 607.26875pt>
-File: good_result.png Graphic file (type png)
- <use good_result.png>
-Package pdftex.def Info: good_result.png used on input line 88.
-(pdftex.def)             Requested size: 252.0pt x 70.19118pt.
-
-<bad_results.png, id=19, 2157.05875pt x 2389.92876pt>
-File: bad_results.png Graphic file (type png)
- <use bad_results.png>
-Package pdftex.def Info: bad_results.png used on input line 89.
-(pdftex.def)             Requested size: 252.0pt x 279.19388pt.
-
-[2 <./LR_find.png> <./lr_cycle.png> <./accuracy_epoch.png> <./good_result.png> 
-<./bad_results.png>]
+<LR_find.png, id=15, 390.45876pt x 271.0125pt>
 File: LR_find.png Graphic file (type png)
  <use LR_find.png>
-Package pdftex.def Info: LR_find.png used on input line 112.
+Package pdftex.def Info: LR_find.png used on input line 124.
 (pdftex.def)             Requested size: 126.0pt x 87.45358pt.
+
+<lr_cycle.png, id=17, 396.48125pt x 266.9975pt>
 File: lr_cycle.png Graphic file (type png)
  <use lr_cycle.png>
-Package pdftex.def Info: lr_cycle.png used on input line 113.
+Package pdftex.def Info: lr_cycle.png used on input line 125.
 (pdftex.def)             Requested size: 126.0pt x 84.85019pt.
+
+<accuracy_epoch.png, id=18, 508.90125pt x 354.32375pt>
 File: accuracy_epoch.png Graphic file (type png)
 
 <use accuracy_epoch.png>
-Package pdftex.def Info: accuracy_epoch.png used on input line 114.
+Package pdftex.def Info: accuracy_epoch.png used on input line 126.
 (pdftex.def)             Requested size: 252.0pt x 175.45837pt.
 
 
-LaTeX Warning: Citation `leslie' on page 3 undefined on input line 121.
+LaTeX Warning: Citation `leslie' on page 2 undefined on input line 133.
 
 
-LaTeX Warning: Citation `leslie' on page 3 undefined on input line 122.
+LaTeX Warning: Citation `leslie' on page 2 undefined on input line 134.
 
+<good_result.png, id=19, 2180.145pt x 607.26875pt>
 File: good_result.png Graphic file (type png)
-<use good_result.png>
-Package pdftex.def Info: good_result.png used on input line 132.
+ <use good_result.png>
+Package pdftex.def Info: good_result.png used on input line 146.
 (pdftex.def)             Requested size: 252.0pt x 70.19118pt.
+
+<bad_results.png, id=20, 2157.05875pt x 2389.92876pt>
 File: bad_results.png Graphic file (type png)
  <use bad_results.png>
-Package pdftex.def Info: bad_results.png used on input line 133.
+Package pdftex.def Info: bad_results.png used on input line 147.
 (pdftex.def)             Requested size: 252.0pt x 279.19388pt.
 
 Underfull \vbox (badness 1320) has occurred while \output is active []
 
- [3]
-(./main.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 47--50
-\OT1/ptm/m/n/8 / / image-[]net . org / challenges / talks[]2017 / imagenet[]ils
-vrc2017[]v1 . 0 . pdf$,
+ [2 <./LR_find.png> <./lr_cycle.png> <./accuracy_epoch.png> <./good_result.png>
+ <./bad_results.png>]
+Underfull \hbox (badness 1442) in paragraph at lines 160--161
+[]\OT1/ptm/m/n/10 We used \ISIC 2018: Skin Le-sion Anal-y-sis To-wards
  []
 
-)
+
+LaTeX Warning: Citation `resnet' on page 3 undefined on input line 163.
+
+
+LaTeX Warning: Reference `sec:seg_training' on page 3 undefined on input line 1
+87.
+
+
+LaTeX Warning: Reference `cosine' on page 3 undefined on input line 187.
+
+
+LaTeX Warning: Citation `leslie' on page 3 undefined on input line 187.
+
+
+LaTeX Warning: Citation `snapshots' on page 3 undefined on input line 189.
+
+(./main.bbl
+Underfull \hbox (badness 3769) in paragraph at lines 47--50
+[]\OT1/ptm/m/it/8 J. D. L. Fei-Fei, ``Where have we been? where are we go-
+ []
+
+[3])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1073,26 +1040,27 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6345 strings out of 492995
- 95028 string characters out of 6132704
- 170351 words of memory out of 5000000
- 9773 multiletter control sequences out of 15000+600000
- 40556 words of font info for 85 fonts, out of 8000000 for 9000
+ 6374 strings out of 492995
+ 95452 string characters out of 6132704
+ 172350 words of memory out of 5000000
+ 9801 multiletter control sequences out of 15000+600000
+ 45035 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,9n,49p,622b,357s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,13n,49p,713b,357s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
 xlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texl
 ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
 ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive
-/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texm
-f-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-dist/fo
-nts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
-urw/times/utmri8a.pfb>
-Output written on main.pdf (4 pages, 2337727 bytes).
+/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2
+017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-
+dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-dist/font
+s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/ur
+w/times/utmri8a.pfb>
+Output written on main.pdf (4 pages, 2351482 bytes).
 PDF statistics:
- 61 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 65 PDF objects out of 1000 (max. 8388607)
+ 39 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
