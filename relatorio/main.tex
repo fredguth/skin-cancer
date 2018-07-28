@@ -19,20 +19,22 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Deep Learning for Skin Lesion Segmentation and Classification: ISIC Challenge 2018}
+\title{Skin Lesion Segmentation and Classification --\\
+  UnB entry at the ISIC Challenge}
 
 \author{\IEEEauthorblockN{Frederico Guth\IEEEauthorrefmark{1},
 Teófilo E. de Campos \IEEEauthorrefmark{2}}
 \IEEEauthorblockA{Departamento de Ciência da Computação,
 Universidade de Brasília (UNB)\\
 \IEEEauthorrefmark{1}fredguth@fredguth.com,
-\IEEEauthorrefmark{2}teodecampos@unb.br}}
+\IEEEauthorrefmark{2}t.decampos@st-annes.oxon.org}}
 
 \maketitle
 
 
 \begin{abstract}
-This paper describes our approach for the ISIC Challenge 2018 - Skin Lesion Analysis Towards Melanoma Detection. For Part 1 - Lesion Segmentation, we developed a U-net based convolutional neural network pretrained with the ImageNet dataset\cite{imagenet} and applied several data augmentation and hyperparameters optimization strategies, obtaining threshold jaccard of 77.5\%. For Part 3 - Lesion Classification, we developed an ensemble strategy that leverages pretrained convolutional networks with our results from Part 1, obtaining an online score of xxxx. 
+  This paper describes our approach for the ISIC Challenge 2018 - Skin Lesion Analysis Towards Melanoma Detection. For Part 1 - Lesion Segmentation, we developed a U-net based convolutional neural network pretrained with the ImageNet dataset% \cite{imagenet}
+  and applied several data augmentation and hyperparameters optimization strategies, obtaining threshold Jaccard index of 77.5\%. For Part 3 - Lesion Classification, we developed an ensemble strategy that leverages pretrained convolutional networks with our results from Part 1, obtaining an online score of xxxx. 
 \end{abstract}
 
 \section{Introduction}
@@ -106,7 +108,7 @@ Visually the best segmentations are almost indentical to the ground truth (see F
 \label{classification}
 
 \subsection{Classification Model}
-We used Resnet50, an architecture which has been very succesful in image classification problems (cite?). We tried using Resnet101 and Resnext101, but due to the lack of computer resources they didn't suit the fast iteration process our research needed. We used the fastai implementation of Resnet50, which has some improvements over the original model proposed by \cite{resnet}. We customized the Resnet50 model pretrained with the Imagenet dataset, by first, removing everything from the adaptive pooling onwards keeping only Resnet backbone as a feature extractor. Then we plugged a very simple network consisting of:
+We used Resnet50, an architecture which has been very succesful in image classification problems (cite?). We tried using Resnet101 and Resnext101, but due to the lack of computer resources they didn't suit the fast iteration process our research needed. We used the fastai implementation of Resnet50, which has some improvements over the original model proposed by \cite{resnet}. We customized the Resnet50 model pretrained with the Imagenet dataset~\cite{imagenet}, by first, removing everything from the adaptive pooling onwards keeping only Resnet backbone as a feature extractor. Then we plugged a very simple network consisting of:
 \begin{itemize}
 \item BatchNorm1d(1024, momentum=0.1)
 \item Dropout(p=0.25)
