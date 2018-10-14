@@ -33,19 +33,20 @@ Universidade de Brasília (UNB)\\
 
 
 \begin{abstract}
-  This paper describes our approach for the ISIC Challenge 2018 - Skin Lesion Analysis Towards Melanoma Detection. For Part 1 - Lesion Segmentation, we developed a U-Net based convolutional neural network pretrained with the ImageNet dataset and applied several data augmentation and hyperparameters optimization strategies, obtaining threshold Jaccard index of 77.5\%. For Part 3 - Lesion Classification, we developed an ensemble strategy that achieved an online score of 84.6\%. 
+  This paper describes our approach for the ISIC Challenge 2018 - Skin Lesion Analysis Towards Melanoma Detection. For Part 1 - Lesion Segmentation, we developed a U-Net based convolutional neural network pretrained with the ImageNet dataset and applied several data augmentation and hyperparameters optimization strategies, obtaining threshold Jaccard index of 77.5\%. For Part 3 - Lesion Classification, we developed an ensemble strategy that achieved an 84.6\% accuracy, which is in the upper bound of human specialists performance range. 
 \end{abstract}
 
 \section{Introduction}
 
 According to the World Health Organization, between 2 and 3 million non-melanoma skin cancers and 132,000 melanoma skin cancers occur globally each year \cite{who}. Despite representing less than 6.5\% of all skin cancers, melanomas are the most dangerous type, accounting for aproximately 75\% of all skin cancer related deaths \cite{who,nature}.
+
 Early detection is critical to increase survival expectancy and visual inspection still is the most common diagnostic technique.
 
 Deep convolutional neural networks (CNNs) already exceed human performance in visual classification\cite{fei}.
 In some areas of oncology, such as histological image analysis, CNNs have also proven to match the performance of experts, e.g.\ \cite{veta_etal_mia2015}.
 In an attempt to improve the scalability of diagnostic expertise, CNNs have been developed to locate and classify skin cancers in images with dermatologist-level accuracy \cite{nature}.
 
-Dermoscopy is a technique for examination of skin lesions that, with proper training, increase dianostic accuracy from 60\% (unaided expert visual inspection) to 75\%-84\%\cite{isic}. The International Skin Imaging Collaboration (ISIC) has a large-scale publicly acessible dataset of more than 20,000 dermoscopy images and host an annual benchmark challenge on dermoscopic image analysis since 2016.  The challenge comprise 3 tasks of lesion analysis: Part 1 - Segmentation, Part 2 - Dermoscopic feature extraction, Part 3 - Classification. 
+Dermoscopy is a technique for examination of skin lesions that, with proper training, increase dianostic accuracy from 60\% (unaided expert visual inspection) to 75\%-84\%\cite{isic}. The International Skin Imaging Collaboration (ISIC) has a large-scale publicly acessible dataset of more than 20,000 dermoscopy images and host an annual benchmark challenge on dermoscopic image analysis since 2016.  The challenge comprise 3 tasks of lesion analysis: Segmentation, Dermoscopic feature extraction and Classification. We worked on Segmentation, identifying the lesion region in a dermoscopic image, and Classification, identifying from the image which kind of lesion it is (Nevus, Melanoma, Pigmented Benign Keratosis, Basal Cell Carcinoma, Actinic Keratosis, Vascular Lesion or Dermatofibroma).
 
 In this paper, we describe our approach for the ISIC Challenge 2018:
 \begin{itemize}
@@ -57,7 +58,6 @@ In this paper, we describe our approach for the ISIC Challenge 2018:
 \section{Lesion Segmentation}
 \label{segmentation}
 
-
 \subsection{Segmentation Model: Unet34}
 Introduced in 2015, U-Net is an encoder-decoder architecture designed for biomedical image segmentation\cite{olaf}, with great results in image segmentation problems \cite{iglovikov}. In an U-Net, the output is an image with the same dimension of the input, but with one channel.  The encoder path is a typical CNN, where each downsampling step doubles the number of feature channels. But what makes this architecture unique is the decoder path, where each upsampling step input is a concatenation of the output of the previous step with the output of the corresponding (same height) downsampling step. This strategy enables precise localization with a very simple network. 
 
@@ -66,7 +66,9 @@ Resnet is a very successful architecture in several computer vision tasks \cite{
 Unet34 is the idea of using a pretrained Resnet34 model as an U-Net encoder path \cite{fastai}. First, every step from the adaptive pooling onwards is removed, keeping only Resnet backbone. Then we save the output of results of the initial layer, 3rd , 8th, and 14th blocks (of 16 in total). During the upsampling we concatenate the output of those with the ouputs of upsampling steps. We used Adam optimizer and Binary Cross Entropy with Logits as the loss function.
 
 \subsection{Data and Augmentation}
-We used “ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection” grand challenge datasets \cite{codella, ham} and no aditional external data. All images were first resized to 128x128 pixels, 256x256 and 512x512; and preprocessed to adjust color balance. Random transformations on input images to agument the dataset were made: dihedral transformation, rotation (up to 44 degrees), zooming (up to 1.05), fliping and random lightining changes. The official training dataset was then splited in 3-folds of training and validation datasets.  
+We used “ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection” grand challenge datasets \cite{codella, ham} and no aditional external data. The Segmentation dataset comprises 2597 training images and 101 validation images acquired with a variety of dematoscope types, from different anatomic sites, from sample of patients of different institutions. There are more benign lesions than malignant, but an over-representation of malignacies. Mask images are enconded as grayscale 8-bit PNGs, where ich pixel is either 0, background, or 255, lesion. 
+
+All images were first resized to 128x128 pixels, 256x256 and 512x512; and preprocessed to adjust color balance. Random transformations on input images to agument the dataset were made: dihedral transformation, rotation (up to 44 degrees), zooming (up to 1.05), fliping and random lightining changes. The official training dataset was then splited in 3-folds of training and validation datasets.  
 
 
 \subsection{Segmentation Experiments and Training}
@@ -126,7 +128,10 @@ We used Resnet50, an architecture which has been very succesful in image classif
 We used Adam optimizer and the negative log likelihood loss function.
 
 \subsection{Data and Augmentation}
-We used “ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection” grand challenge datasets \cite{codella, ham}. When we used a pretrained Task1 model, we considered that external data was used. All images were first resized to 224x224 and a color balance copy of the dataset was made. Random transformations on input images to agument the dataset were made: dihedral transformation, rotation (up to 35 degrees), zooming (up to 1.05), fliping and random lightining changes. The official training dataset was then splited in 3-folds of training and validation datasets.  
+We used “ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection” grand challenge datasets \cite{codella, ham}.
+The dataset comprises 10015 images and one CSV file containing ground truth response for each image with one of the 7 lesion types: Nevus, Melanoma, Pigmented Benign Keratosis, Basal Cell Carcinoma, Actinic Keratosis, Vascular Lesion or Dermatofibroma.
+ 
+ When we used a pretrained Task1 model, we considered that external data was used. All images were first resized to 224x224 and a color balance copy of the dataset was made. Random transformations on input images to agument the dataset were made: dihedral transformation, rotation (up to 35 degrees), zooming (up to 1.05), fliping and random lightining changes. The official training dataset was then splited in 3-folds of training and validation datasets.  
 
 
 \subsection{Classification: Experiments and Training}
