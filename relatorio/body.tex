@@ -1,41 +1,3 @@
-\documentclass[conference]{IEEEtran}
-\IEEEoverridecommandlockouts
-% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
-\usepackage{cite}
-\usepackage{amsmath,amssymb,amsfonts}
-\usepackage{algorithmic}
-\usepackage{graphicx}
-\usepackage{url}
-\usepackage[utf8]{inputenc}
-\usepackage{textcomp}
-\usepackage{multirow}
-\usepackage{booktabs}
-\usepackage{subfig}
-\usepackage{nameref}
-
-\usepackage[english]{babel}
-\DeclareUnicodeCharacter{00A0}{ }
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-\begin{document}
-
-\title{Skin Lesion Segmentation and Classification --\\
-  UnB entry at the ISIC Challenge}
-
-\author{\IEEEauthorblockN{Frederico Guth\IEEEauthorrefmark{1},
-Teófilo E. de Campos \IEEEauthorrefmark{2}}
-\IEEEauthorblockA{Departamento de Ciência da Computação,
-Universidade de Brasília (UNB)\\
-\IEEEauthorrefmark{1}fredguth@fredguth.com,
-\IEEEauthorrefmark{2}t.decampos@st-annes.oxon.org}}
-
-\maketitle
-
-
-\begin{abstract}
-  This paper describes our approach for the ISIC Challenge 2018 - Skin Lesion Analysis Towards Melanoma Detection. For Part 1 - Lesion Segmentation, we developed a U-Net based convolutional neural network pretrained with the ImageNet dataset and applied several data augmentation and hyperparameters optimization strategies, obtaining threshold Jaccard index of 77.5\%. For Part 3 - Lesion Classification, we developed an ensemble strategy that achieved an 84.6\% accuracy, which is in the upper bound of human specialists performance range. 
-\end{abstract}
-
 \section{Introduction}
 
 According to the World Health Organization, between 2 and 3 million non-melanoma skin cancers and 132,000 melanoma skin cancers occur globally each year \cite{who}. Despite representing less than 6.5\% of all skin cancers, melanomas are the most dangerous type, accounting for aproximately 75\% of all skin cancer related deaths \cite{who,nature}.
@@ -76,10 +38,10 @@ All images were first resized to 128x128 pixels, 256x256 and 512x512; and prepro
 Our training strategy was to first train the model with 128x128 images and transfer this learning to train the same model with images with 256 x 256 images. We would suggest using the same strategy to go from 256x256 to 512 x 512 images, but due to GPU memory constraints, we did not manage to acccomplish this last step.
 
 \begin{figure}
-\centering
-\subfloat[Learning Rate vs Validation Loss (Learning Rate Optimization)]{\includegraphics[width=.5\columnwidth]{LR_find.png}\label{lrfind}}
-\subfloat[Iterations vs Learning Rate (cyclical learning rate policy)]{\includegraphics[width=.5\columnwidth]{lr_cycle.png}\label{sconv}}\hfil
-\subfloat[Epoch vs Accuracy (superconvergence)]{\includegraphics[width=0.6\columnwidth]{accuracy_epoch.png}}
+  \centering
+  \subfloat[Learning Rate vs Validation Loss (Learning Rate Optimization)]{\includegraphics[width=.5\columnwidth]{LR_find.png}\label{lrfind}}
+  \subfloat[Iterations vs Learning Rate (cyclical learning rate policy)]{\includegraphics[width=.5\columnwidth]{lr_cycle.png}\label{sconv}}\hfil
+  \subfloat[Epoch vs Accuracy (superconvergence)]{\includegraphics[width=0.6\columnwidth]{accuracy_epoch.png}}
 \caption{Learning rate optimization strategy}\label{lr_find_chart}
 \end{figure}
 
@@ -188,9 +150,3 @@ This paper descibes our approach for the ISIC Challenge 2018. For the Lesion Seg
 
 Future work could improve in many ways. For lesion segmentation, we could repeat the experiment using other architectures as feature extractors. Test time augmentation could be applied, it made difference in our classification algorithm and was not implemented due to the difficulties of inversing the augmentations to later average.  We suggest to implement a preprocessing pipeline for removing the pen marks in images and maybe a 2 step process can be developed to roughly finding where the lesion is and croping a part of the input image to prevent the bad results due to lesion size. For lesion classification, one could different resnet variations as backbone (resnet18, resnet101, resnext101, etc) and/or using inception. We didn't have time to use the snapshots of the croped images and just used the final model in the kfold, and this may show better results.
 
-
-\selectlanguage{english}
-\bibliographystyle{IEEEtran}
-\bibliography{references}
-
-\end{document}
