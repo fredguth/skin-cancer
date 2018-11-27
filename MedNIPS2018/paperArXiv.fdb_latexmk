@@ -1,17 +1,17 @@
 # Fdb version 3
-["bibtex paperArXiv"] 1543242563 "paperArXiv.aux" "paperArXiv.bbl" "paperArXiv" 1543242617
+["bibtex paperArXiv"] 1543255987 "paperArXiv.aux" "paperArXiv.bbl" "paperArXiv" 1543256323
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1480098433 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "paperArXiv.aux" 1543242617 5507 0403e021c108faff1d0f61e8dea01bfd ""
+  "paperArXiv.aux" 1543256323 5996 2872ccb546b44db0e27ece44c44734c6 ""
   "paperArXiv.bcf" 0 -1 0 ""
-  "references.bib" 1543228083 14173 d6339808cc553a1488c912db7fea8aa9 ""
+  "paperArXiv.bib" 0 -1 0 ""
   (generated)
-  "paperArXiv.bbl"
   "paperArXiv.blg"
-["pdflatex"] 1543242616 "/home/fredguth/Code/skin-cancer/MedNIPS2018/paperArXiv.tex" "paperArXiv.pdf" "paperArXiv" 1543242617
+  "paperArXiv.bbl"
+["pdflatex"] 1543256322 "/home/fredguth/Code/skin-cancer/MedNIPS2018/paperArXiv.tex" "paperArXiv.pdf" "paperArXiv" 1543256323
   "/etc/texmf/web2c/texmf.cnf" 1540518593 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/fredguth/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.600pk" 1543234608 17492 2528854bc31c4b75c6a2b13682fa98db ""
   "/home/fredguth/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk" 1543234551 20008 eeb2fac81a5c7fb199bfa83d1d0b0328 ""
-  "/home/fredguth/Code/skin-cancer/MedNIPS2018/paperArXiv.tex" 1543228083 2453 b17649340213f13d3577c3734d7311a2 ""
+  "/home/fredguth/Code/skin-cancer/MedNIPS2018/paperArXiv.tex" 1543256322 2471 f82c1a6bbc555bb9cdac985d62181efa ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm" 1480098689 4524 6bce29db5bc272ba5f332261583fee9c ""
@@ -111,17 +111,17 @@
   "abstract.tex" 1543228083 541 6b93f38ee7a969e64ef66a2fc1f18d47 ""
   "accuracy_epoch.png" 1543228083 31476 bffb6f2e395e7955c165cc458a1e8ed9 ""
   "bad_results.png" 1543228083 1527256 485923d1137df678d125faa5ea5a5c80 ""
-  "body.tex" 1543242616 14934 9461424568068d993d7848eb1d1f8ca0 ""
+  "body.tex" 1543242664 14934 9461424568068d993d7848eb1d1f8ca0 ""
   "cycle.png" 1543228083 19127 fdfa5a38ac87f49dcccf548110bef34d ""
   "good_result.png" 1543228083 266034 f8d280d8314d8d4dbda41fffdbf7e8c3 ""
   "lr_cycle.png" 1543228083 12875 67e0998168cd9381038988602681572f ""
   "nips_2018.sty" 1543228083 10935 ab9717610554bb7f7b35f7cd09a726c1 ""
-  "paperArXiv.aux" 1543242617 5507 0403e021c108faff1d0f61e8dea01bfd ""
-  "paperArXiv.bbl" 1543242563 4384 e6dd028fe70ab162602d678e7b3dcf45 "bibtex paperArXiv"
-  "paperArXiv.out" 1543242617 879 c1fa888c40d53cf0efa245f6c4ee424e ""
-  "paperArXiv.tex" 1543228083 2453 b17649340213f13d3577c3734d7311a2 ""
+  "paperArXiv.aux" 1543256323 5996 2872ccb546b44db0e27ece44c44734c6 ""
+  "paperArXiv.bbl" 1543255987 4384 e6dd028fe70ab162602d678e7b3dcf45 "bibtex paperArXiv"
+  "paperArXiv.out" 1543256323 879 c1fa888c40d53cf0efa245f6c4ee424e ""
+  "paperArXiv.tex" 1543256322 2471 f82c1a6bbc555bb9cdac985d62181efa ""
   (generated)
+  "paperArXiv.out"
   "paperArXiv.pdf"
   "paperArXiv.aux"
-  "paperArXiv.out"
   "paperArXiv.log"
